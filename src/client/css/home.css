@@ -1,0 +1,48 @@
+#grid {
+  margin: 600px;
+}
+
+.home {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 200px;
+  padding-top: 70px !important;
+  gap: 150px;
+}
+
+.card {
+  background-color: #9edef9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1rem;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.home .card img {
+  width: 100%;
+  max-height: 300px;
+}
+.container-filter {
+	display: flex;
+}
+
+.icon-filter {
+	margin-bottom: 0px;
+	cursor: pointer;
+}
+
+.icon-filter .icon {
+	width: 80px;
+	height: 50px;
+	stroke: #555;
+}
+.btn-cat{
+  background-color: rgb(32, 177, 255);
+  transition: 0.5s;
+  border-radius: 0.25em;
+  cursor: pointer;
+  margin: 5px 5px;
+}
+
+.btn-cat:hover{ transform: scale(1.25);}

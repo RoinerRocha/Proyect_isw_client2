@@ -1,0 +1,17 @@
+.container-filter {
+	display: flex;
+    padding-top: 200px !important;
+    margin-left: 200px;
+}
+
+.icon-filter {
+	gap: 15px;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.icon-filter .icon {
+	width: 80px;
+	height: 50px;
+	stroke: #555;
+}
