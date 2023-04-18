@@ -28,7 +28,7 @@ function Logicalogin(correo,cont,navigate){
                 alert("error");
             }
             if(res.data.data){
-                Tokuser=res.data.data;
+               Tokuser=res.data.data;
                localStorage.setItem('Token',JSON.stringify(Tokuser)); 
                navigate("/home");         
             };

@@ -16,7 +16,7 @@ function TableCategories() {
         if(!usuario){
             window.location("/")
         }
-        if(token.role == "user"){   
+        if(token.role == "user"){  
             window.location("/home")
         }
     }, []);
