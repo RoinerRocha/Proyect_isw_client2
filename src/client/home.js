@@ -61,7 +61,7 @@ function Home() {
     }
 
     return (
-        <div>
+        <div className="principal">
             {<Header />}
             <div className='container-filter container'>
                 <div className='icon-filter'>
