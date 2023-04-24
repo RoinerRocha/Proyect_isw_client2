@@ -22,7 +22,10 @@ function Register(){
          }).then(function (res) {
                  console.log(res);
                  if(res){
-                    navigate("/");
+                    if (res.data.confirmed == false){
+                        alert("Necesitas confirmar tu correo para acceder");
+                        navigate("/");
+                    }
                  }
                }).catch(error=>{
                 console.log("error: "+error);

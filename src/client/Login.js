@@ -25,7 +25,7 @@ function Logicalogin(correo, cont, navigate) {
         }).then(function (res) {
             console.log(res);
             if (!res.data.data) {
-                alert("error");
+                alert("error, debes confirmar tu cuenta");
             }
             if (res.data.data) {
                 Tokuser = res.data.data;
@@ -42,7 +42,7 @@ function Logicalogin(correo, cont, navigate) {
 
 function Login() {
 
-    {/* testing graphql
+     
     useEffect(() => {
         fetch('http://localhost:4000', {
             method: 'POST',
@@ -51,6 +51,7 @@ function Login() {
                 query: `
                     query {
                         categories {
+                            _id
                             name
                         }
                     }
@@ -58,9 +59,10 @@ function Login() {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res.data)
+                console.log(res.data.categories)
+                
             })
-    })*/}
+    })
 
     const navigate = useNavigate();
 

@@ -1,6 +1,10 @@
 #grid {
   margin: 600px;
 }
+.principal{
+  min-height: 100vh;
+  background-color: #23242a;
+}
 
 .home {
   display: grid;
