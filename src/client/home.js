@@ -89,7 +89,7 @@ function Home() {
                         {categorias !== null ? (categorias.map(cat => (
                             <button onClick={(props) => Filtro(cat._id)} className="btn-cat">{cat.name}</button>
                         ))) : ('no hay cosas')}
-                        <span>Filtrar Categorias</span>
+                        <span className="span">Filtrar Categorias</span>
                     </div>
                 </div>
                 <div className="home">

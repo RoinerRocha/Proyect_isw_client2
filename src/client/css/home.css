@@ -31,6 +31,10 @@
 	display: flex;
 }
 
+.span {
+  color: white;
+}
+
 .icon-filter {
 	margin-bottom: 0px;
 	cursor: pointer;

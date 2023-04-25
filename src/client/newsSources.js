@@ -77,20 +77,33 @@ function NewSources() {
     let [url, setUrl] = useState('');
     let [idC, setIdC] = useState('');
     return (
-        <div className="backgroundNews">
-            {<Header />}
-            <div className="cover2">
-                <h1>Agregar Fuentes</h1>
-                <input className="nombre" type="text" placeholder="Nombre de la Fuente" onChange={ev => setName(ev.target.value)} required />
-                <input className="contraseña" type="text" placeholder="URL" onChange={ev => setUrl(ev.target.value)} required />  
-                <select className="categoria"onChange={ev => setIdC(ev.target.value)}>
-                {categorias !== null ? (categorias.map(cat=>(
-                    <option key={cat._id}>{cat.name}</option>
-                ))) : ('no hay cosas')}
-                    
-                </select>
-                <div className="login-btn1" type="submit" value="Registrar Noticia" onClick={() => Registrar(name, url, idC)}>registrar Fuente</div>
-                {/*<input type="submit" value="Registrar" onClick={() => Registrar(usuario, correo, contra, contra2)} />*/}
+        <div className="BackgroundNews">
+            <div className="back">
+                <span className="ClassLine"></span>
+                <form>
+                    <h2>Agregar Fuentes</h2>
+                    <div className="cover2">
+                        <input className="nombre" type="text" placeholder="Nombre de la Fuente" onChange={ev => setName(ev.target.value)} required />
+                        <i></i>
+                    </div>
+                    <div className="cover2">
+                        <input className="contraseña" type="text" placeholder="URL" onChange={ev => setUrl(ev.target.value)} required />  
+                        <i></i>
+                    </div>
+                    <div className="cover2">
+                        <select className="categoria"onChange={ev => setIdC(ev.target.value)}>
+                        {categorias !== null ? (categorias.map(cat=>(
+                            <option key={cat._id}>{cat.name}</option>
+                        ))) : ('no hay cosas')}
+                            
+                        </select>
+                    </div>
+                    <div className="Links">
+                        <a href="/tableNews">Volver</a>
+                    </div>
+                    <div className="source-boton" type="submit" value="Registrar Noticia" onClick={() => Registrar(name, url, idC)}>registrar Fuente</div>
+                        {/*<input type="submit" value="Registrar" onClick={() => Registrar(usuario, correo, contra, contra2)} />*/}
+                </form>
             </div>
         </div>
     );

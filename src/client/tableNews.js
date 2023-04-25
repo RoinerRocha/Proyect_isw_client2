@@ -172,9 +172,9 @@ function TableNews() {
                     </tbody>
                 </Table>
                 <form className='m-3' onSubmit={handleSubmit} >
-                    <label htmlFor="name">Titulo del Source a editar:</label>
+                    <label htmlFor="name">Titulo de la fuente que desea editar aqui:</label>
                     <input type="text" name="name" onChange={handleChange} value={formData.name}></input>
-                    <label htmlFor="name">Nombre Categoria a editar:</label>
+                    <label htmlFor="name">Fuente de la categoria que desea cambiar:</label>
                     <input type="text" name="url" onChange={handleChange} value={formData.url}></input>
                     <input className='btn btn-success mx-1' type="submit" value="Enviar" />
                     <input className='btn btn-danger mx-1' type="reset" value="Cancelar" />

@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router"
 import "./css/table.css";
 import jwtDecode from "jwt-decode";
-import { todasCategorias } from "./funcion";
 import Header from "./header";
 import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter } from "reactstrap";
 
@@ -83,8 +82,31 @@ function TableCategories() {
       }
 
     const [categorias, setCategorias] = useState(null)
+
+    const allCategorys = async (state) => {
+        fetch('http://localhost:4000', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: `
+                    query {
+                        categories {
+                            _id
+                            name
+                        }
+                    }
+                `})
+        })
+            .then(res => res.json())
+            .then(res => {
+                state(res.data.categories)
+                console.log(state)
+                
+            })
+    }
+
     useEffect(() => {
-        todasCategorias(setCategorias)
+        allCategorys(setCategorias)
     }, [])
 
     function LogicaCat(navigate) {
@@ -138,7 +160,7 @@ function TableCategories() {
                     </tbody>
                 </Table>
                 <form className='m-3'onSubmit={handleSubmit} >
-                    <label htmlFor="name">Nombre Categoria a editar:</label>
+                    <label htmlFor="name">Nombre Categoria a editar a continuacion:</label>
                     <input type="text" name="name" onChange={handleChange} value={formData.name}></input>
                     <input className='btn btn-success mx-1' type="submit" value="Enviar" />
                     <input className='btn btn-danger mx-1' type="reset" value="Cancelar" />
