@@ -44,17 +44,27 @@ function Home() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/news/${token.id}`, {
-            headers: {
-                'Authorization': 'Bearer ' + usuario,
-                'Content-Type': 'application/json'
-            }
-        }).then(function (res) {
-            setNotice(res.data);
+        fetch('http://localhost:4000', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: `
+                    query News {
+                        news (id: "${token.id}"){
+                            date
+                            permalink
+                            short_description
+                            title
+                        }
+                    }
+                `})
+        })
+            .then(res => res.json())
+            .then(res => {
+                setNotice(res.data.news);
+                console.log(setNotice);
+            })
 
-        }).catch(error => {
-            console.log("error: " + error);
-        });
     }, []);
 
 
@@ -66,18 +76,26 @@ function Home() {
 
     const Filtro = (props) => {
         console.log(props);
-        axios.get(`http://localhost:5000/news/${token.id}/${props}`, {
-            headers: {
-                'Authorization': 'Bearer ' + usuario,
-                'Content-Type': 'application/json'
-            }
-        }).then(function (res) {
-            console.log(res.data)
-            setNotice(res.data);
-
-        }).catch(error => {
-            console.log("error: " + error);
-        });
+        fetch('http://localhost:4000', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: `
+                    query NewsByCat {
+                        newsByCat(id: "${token.id}", cat: "${props}") {
+                        date
+                        permalink
+                        short_description
+                        title
+                        }
+                    }
+                `})
+        })
+            .then(res => res.json())
+            .then(res => {
+                setNotice(res.data.newsByCat);
+                console.log(setNotice);
+            })
     }
 
     return (
