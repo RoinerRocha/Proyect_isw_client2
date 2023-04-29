@@ -34,19 +34,28 @@ function TableNews() {
     })
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/newsource/${token.id}`, {
-            headers: {
-                'Authorization': 'Bearer ' + usuario,
-                'Content-Type': 'application/json'
-            }
-        }).then(function (res) {
-            console.log(res.data)
-            console.log(token)
-            setSources(res.data);
+        fetch('http://localhost:4000', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: `
+                    query NewSourceById {
+                        newSourceById(id: "${token.id}") {
+                            _id
+                            category_id
+                            name
+                            url
+                            user_id
+                        }
+                    }
+                `})
+        })
+            .then(res => res.json())
+            .then(res => {
+                setSources(res.data.newSourceById)
+                console.log(setSources)
 
-        }).catch(error => {
-            console.log("error: " + error);
-        });
+            })
     }, []);
 
     useEffect(() => {
@@ -68,7 +77,7 @@ function TableNews() {
                 _id: sources._id,
                 url: formData.url,
                 name: formData.name,
-                
+
             }, {
                 headers: {
                     'Content-Type': 'application/json'

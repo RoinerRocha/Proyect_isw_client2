@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router"
 import axios from "axios";
+import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label } from "reactstrap";
+import 'bootstrap/dist/css/bootstrap.css';
 import "./css/Login.css";
 
 function Logicalogin(correo, cont, navigate) {
@@ -39,10 +41,7 @@ function Logicalogin(correo, cont, navigate) {
 
 }
 
-
 function Login() {
-
-     
     useEffect(() => {
         fetch('http://localhost:4000', {
             method: 'POST',
@@ -64,10 +63,12 @@ function Login() {
             })
     })
 
+
     const navigate = useNavigate();
 
     let [correo, setCorreo] = useState('');
     let [cont, setContra] = useState('');
+    let [mostrar, setMostrar] = useState(false);
     return (
         <div className="Body">
             <div className="Box">
@@ -84,10 +85,20 @@ function Login() {
                     </div>
                     <div className="links">
                         <a href="/register">Registrarse aqui</a>
+                        <a onClick={() => setMostrar(true)}>Ingresar Codigo</a>
                     </div>
-                    <div className="login-btn" type="submit" value="Login" onClick={() => Logicalogin(correo, cont, navigate)}>login</div>
+                    {/*<div className="login-btn" type="submit" value="Login" onClick={() => Logicalogin(correo, cont, navigate)}>login</div>*/}
+                    <div className="login-btn" type="submit" value="Login" onClick={() => setMostrar(true)}>Enviar Código</div>
                     {/*<input type="submit" value="Login" onClick={()=>Logicalogin(correo,contra,navigate)}/>*/}
                 </form>
+            </div>
+            <div className="modal-container" style={{display: mostrar ? 'grid': 'none'}}>
+                <div className="modal-cuerpo">
+                    <h1>insertar codigo</h1>
+                    <button className="modal-close" onClick={()=> setMostrar(false)}>Cerrar</button>
+                    <input placeholder="Ingrese el codigo" />
+                    <button className="modal-succes" onClick={()=> setMostrar(false)}>Ingrear Codigo</button>
+                </div>
             </div>
         </div>
     );

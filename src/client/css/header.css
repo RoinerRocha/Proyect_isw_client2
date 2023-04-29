@@ -7,10 +7,12 @@ header {
   left: 0;
 }
 
-header form {
+.Body1 .form-group {
   display: flex;
   align-items: center;
   gap: 15px;
+  width: 600px;
+  margin-left: 500px;
 }
 
 .logo img {
@@ -19,21 +21,25 @@ header form {
 
 .form-group {
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 10px;
-
   border: 1px solid #555;
   padding: 15px 20px;
   border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
 }
 
 .form-group input {
   /* padding: 15px 30px; */
   font-family: inherit;
-  width: 300px;
+  width: 100%;
   border: none;
   outline: none;
   font-size: 15px;
+  height: 45px;
 }
 
 .icon-search {
