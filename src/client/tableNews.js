@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router"
 import "./css/table.css";
 import jwtDecode from "jwt-decode";
-import { todasCategorias } from "./funcion";
 import Header from "./header";
 import { Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter } from "reactstrap";
 
@@ -23,10 +22,30 @@ function TableNews() {
     const [sources, setSources] = useState(null)
 
     const [categorias, setCategorias] = useState(null)
-    useEffect(() => {
-        todasCategorias(setCategorias)
-    }, []);
+    const allCategorys = async (state) => {
+        fetch('http://localhost:4000', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: `
+                    query {
+                        categories {
+                            _id
+                            name
+                        }
+                    }
+                `})
+        })
+            .then(res => res.json())
+            .then(res => {
+                state(res.data.categories)
+                console.log(state)
 
+            })
+    }
+    useEffect(() => {
+        allCategorys(setCategorias)
+    }, [])
     const [editData, setEditData] = useState(null)
     const [formData, setFormData] = useState({
         name: '',

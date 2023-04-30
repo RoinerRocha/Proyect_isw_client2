@@ -15,7 +15,7 @@
 .Box{
     position: relative;
     width: 380px;
-    height: 420px;
+    height: 460px;
     background: #1c1c1c;
     border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -216,6 +216,7 @@
     font-size: 0.75em;
     color: #8f8f8f;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .Box form .links a:hover,

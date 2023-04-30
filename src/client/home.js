@@ -17,6 +17,13 @@ function Home() {
     useEffect(() => {
         Noticias(setNews)
     }, [])*/
+
+    useEffect(() => {
+        if (!usuario) {
+            window.location("/")
+        }
+    }, []);
+
     const allCategorys = async (state) => {
         fetch('http://localhost:4000', {
             method: 'POST',
@@ -67,13 +74,6 @@ function Home() {
 
     }, []);
 
-
-    useEffect(() => {
-        if (!usuario) {
-            window.location("/")
-        }
-    }, []);
-
     const Filtro = (props) => {
         console.log(props);
         fetch('http://localhost:4000', {
@@ -94,7 +94,7 @@ function Home() {
             .then(res => res.json())
             .then(res => {
                 setNotice(res.data.newsByCat);
-                console.log(setNotice);
+                console.log(notice);
             })
     }
 

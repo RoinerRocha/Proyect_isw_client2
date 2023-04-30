@@ -14,9 +14,6 @@ function NewSources() {
         }
     }, []);
     const [categorias, setCategorias] = useState(null)
-    useEffect(() => {
-        todasCategorias(setCategorias)
-    }, [])
     let navigate = useNavigate();
 
     const Registrar = async (name, url, idC) => {
@@ -59,20 +56,30 @@ function NewSources() {
         };
 
     };
-    let [category, setCategory] = useState([]);
+    const allCategorys = async (state) => {
+        fetch('http://localhost:4000', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: `
+                    query {
+                        categories {
+                            _id
+                            name
+                        }
+                    }
+                `})
+        })
+            .then(res => res.json())
+            .then(res => {
+                state(res.data.categories)
+                console.log(state)
 
+            })
+    }
     useEffect(() => {
-        axios.get('http://localhost:5000/category', {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (res) {
-            setCategory(res.data.data);
-
-        }).catch(error => {
-            console.log("error: " + error);
-        });
-    }, []);
+        allCategorys(setCategorias)
+    }, [])
     let [name, setName] = useState('');
     let [url, setUrl] = useState('');
     let [idC, setIdC] = useState('');

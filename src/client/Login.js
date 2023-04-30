@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router"
 import axios from "axios";
-import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label, Alert } from "reactstrap";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./css/Login.css";
 
@@ -17,7 +17,7 @@ function Logicalogin(correo, cont, navigate) {
         }
 
     } else {
-        axios.post('http://localhost:5000/session', {
+        axios.post('http://localhost:5000/2FA', {
             email: correo,
             password: cont
         }, {
@@ -26,13 +26,14 @@ function Logicalogin(correo, cont, navigate) {
             }
         }).then(function (res) {
             console.log(res);
-            if (!res.data.data) {
-                alert("error, debes confirmar tu cuenta");
+            if (!res.data) {
+                alert("error, Al enviar el codigo");
             }
-            if (res.data.data) {
-                Tokuser = res.data.data;
-                localStorage.setItem('Token', JSON.stringify(Tokuser));
-                navigate("/home");
+            if (res.data) {
+                alert("Codigo Enviado")
+                //Tokuser = res.data.data;
+                //localStorage.setItem('Token', JSON.stringify(Tokuser));
+                //navigate("/home");
             };
 
         })
@@ -41,34 +42,66 @@ function Logicalogin(correo, cont, navigate) {
 
 }
 
-function Login() {
-    useEffect(() => {
-        fetch('http://localhost:4000', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                query: `
-                    query {
-                        categories {
-                            _id
-                            name
-                        }
-                    }
-                `})
-        })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res.data.categories)
-                
-            })
-    })
 
+function LogicalCode(codigo, navigate) {
+    let Tokuser = "";
+    if (!codigo) {
+        alert("Insertar Codigo")
+
+    } else {
+        axios.post(`http://localhost:5000/session2fa/${codigo}`).then(function (res) {
+            console.log(res);
+            if (!res.data.data) {
+                alert("error");
+            }
+            if (res.data.data) {
+                Tokuser = res.data.data;
+                localStorage.setItem('Token', JSON.stringify(Tokuser));
+                alert("Codigo Enviado");
+                navigate("/home");
+            }
+        })
+
+    };
+
+}
+
+function LogicalPaswordless(correo) {
+    let Tokuser = "";
+    if (!correo) {
+        alert("Primero digita tu correo")
+
+    } else {
+        axios.post("http://localhost:5000/passwordless", {  
+            email: correo,    
+        },{
+            headers: {
+            'Content-Type': 'application/json'
+             }  
+        }).then(function (res) {
+            console.log(res);
+            if (!res.data.data) {
+                alert("nop");
+            }
+            if (res.data.data) {
+                Tokuser = res.data.data;
+                localStorage.setItem('Token', JSON.stringify(Tokuser));
+                alert("Email Enviado");
+            }
+        })
+
+    };
+
+}
+
+function Login() {
 
     const navigate = useNavigate();
 
     let [correo, setCorreo] = useState('');
     let [cont, setContra] = useState('');
     let [mostrar, setMostrar] = useState(false);
+    let [codigo, setCodigo] = useState('');
     return (
         <div className="Body">
             <div className="Box">
@@ -87,17 +120,18 @@ function Login() {
                         <a href="/register">Registrarse aqui</a>
                         <a onClick={() => setMostrar(true)}>Ingresar Codigo</a>
                     </div>
-                    {/*<div className="login-btn" type="submit" value="Login" onClick={() => Logicalogin(correo, cont, navigate)}>login</div>*/}
-                    <div className="login-btn" type="submit" value="Login" onClick={() => setMostrar(true)}>Enviar Código</div>
+                    <div className="login-btn" type="submit" value="Login" onClick={() => Logicalogin(correo, cont, navigate)}>Enviar Código</div>
+                    <div className="login-btn" type="submit" value="Login" onClick={() => LogicalPaswordless(correo)}>Pasworldless</div>
+                    {/*<div className="login-btn" type="submit" value="Login" onClick={() => setMostrar(true)}>Enviar Código</div>*/}
                     {/*<input type="submit" value="Login" onClick={()=>Logicalogin(correo,contra,navigate)}/>*/}
                 </form>
             </div>
-            <div className="modal-container" style={{display: mostrar ? 'grid': 'none'}}>
+            <div className="modal-container" style={{ display: mostrar ? 'grid' : 'none' }}>
                 <div className="modal-cuerpo">
                     <h1>insertar codigo</h1>
-                    <button className="modal-close" onClick={()=> setMostrar(false)}>Cerrar</button>
-                    <input placeholder="Ingrese el codigo" />
-                    <button className="modal-succes" onClick={()=> setMostrar(false)}>Ingrear Codigo</button>
+                    <button className="modal-close" onClick={() => setMostrar(false)}>Cerrar</button>
+                    <input placeholder="Ingrese el codigo" onChange={ev => setCodigo(ev.target.value)} required />
+                    <button className="modal-succes" onClick={() => LogicalCode(codigo, navigate)}>Ingrear Codigo</button>
                 </div>
             </div>
         </div>
