@@ -26,10 +26,10 @@ function Logicalogin(correo, cont, navigate) {
             }
         }).then(function (res) {
             console.log(res);
-            if (!res.data) {
-                alert("error, Al enviar el codigo");
+            if (res.data.error) {
+                alert("error, al enviar el codigo");
             }
-            if (res.data) {
+            if (!res.data.error) {
                 alert("Codigo Enviado")
                 //Tokuser = res.data.data;
                 //localStorage.setItem('Token', JSON.stringify(Tokuser));
@@ -50,7 +50,7 @@ function LogicalCode(codigo, navigate) {
 
     } else {
         axios.post(`http://localhost:5000/session2fa/${codigo}`).then(function (res) {
-            console.log(res);
+            console.log(res.data.data);
             if (!res.data.data) {
                 alert("error");
             }
