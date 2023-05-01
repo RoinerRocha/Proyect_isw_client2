@@ -25,7 +25,7 @@ function Logicalogin(correo, cont, navigate) {
                 'Content-Type': 'application/json'
             }
         }).then(function (res) {
-            console.log(res);
+
             if (res.data.error) {
                 alert("error, al enviar el codigo");
             }
@@ -50,14 +50,14 @@ function LogicalCode(codigo, navigate) {
 
     } else {
         axios.post(`http://localhost:5000/session2fa/${codigo}`).then(function (res) {
-            console.log(res.data.data);
+
             if (!res.data.data) {
                 alert("error");
             }
             if (res.data.data) {
                 Tokuser = res.data.data;
                 localStorage.setItem('Token', JSON.stringify(Tokuser));
-                alert("Codigo Enviado");
+                alert("Codigo Insertado");
                 navigate("/home");
             }
         })
@@ -72,14 +72,13 @@ function LogicalPaswordless(correo) {
         alert("Primero digita tu correo")
 
     } else {
-        axios.post("http://localhost:5000/passwordless", {  
-            email: correo,    
-        },{
+        axios.post("http://localhost:5000/passwordless", {
+            email: correo,
+        }, {
             headers: {
-            'Content-Type': 'application/json'
-             }  
+                'Content-Type': 'application/json'
+            }
         }).then(function (res) {
-            console.log(res);
             if (!res.data.data) {
                 alert("nop");
             }

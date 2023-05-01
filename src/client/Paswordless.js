@@ -6,13 +6,11 @@ import "./css/categorias.css";
 function LogicalVerif(usuario, navigate) {
     
     let Tokuser = "";
-    console.log(usuario);
     if (usuario == null) {
         alert("Insertar Codigo")
 
     } else {
         axios.post(`http://localhost:5000/session/${usuario}`).then(function (res) {
-            console.log(res);
             if (!res.data.data) {
                 alert("error");
             }

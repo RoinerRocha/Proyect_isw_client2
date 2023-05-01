@@ -39,7 +39,6 @@ function TableNews() {
             .then(res => res.json())
             .then(res => {
                 state(res.data.categories)
-                console.log(state)
 
             })
     }
@@ -72,7 +71,6 @@ function TableNews() {
             .then(res => res.json())
             .then(res => {
                 setSources(res.data.newSourceById)
-                console.log(setSources)
 
             })
     }, []);
@@ -89,7 +87,6 @@ function TableNews() {
     }, [editData])
 
     const editSource = (sources) => {
-        console.log(sources._id);
         const isEdited = window.confirm(`Desea Editar esta categoria?${sources._id}`)
         if (isEdited) {
             axios.put(`http://localhost:5000/newsource/${sources._id}`, {
@@ -102,12 +99,10 @@ function TableNews() {
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                console.log(res);
                 if (res) {
                     navigate("/home");
                 }
             }).catch(error => {
-                console.log("error: " + error);
                 alert("NO se pudo Editar");
             });
         }
@@ -149,12 +144,10 @@ function TableNews() {
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                console.log(res);
                 if (res) {
                     navigate("/home");
                 }
             }).catch(error => {
-                console.log("error: " + error);
                 alert("NO se pudo eliminar");
             });
         }

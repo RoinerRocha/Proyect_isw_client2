@@ -23,7 +23,6 @@ function RegistrarCategoria() {
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                console.log(res);
                 if (res) {
                     alert("Categoria registrada");
                     navigate("/home");

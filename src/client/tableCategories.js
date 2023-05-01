@@ -11,7 +11,6 @@ function TableCategories() {
     let [usuario, setusuario] = useState(JSON.parse(localStorage.getItem('Token')));
     useEffect(() => {
         const token = jwtDecode(usuario);
-        console.log(token);
         if(!usuario){
             window.location("/")
         }
@@ -34,7 +33,6 @@ function TableCategories() {
     }, [editData])
     
     const editCategory = (categorias) => {
-        console.log(categorias._id);
         const isEdited = window.confirm(`Desea Editar esta categoria?${categorias._id}`)
         if (isEdited) {
             axios.put(`http://localhost:5000/category/${categorias._id}`, {
@@ -45,12 +43,10 @@ function TableCategories() {
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                console.log(res);
                 if (res) {
                     navigate("/home");
                 }
             }).catch(error => {
-                console.log("error: " + error);
                 alert("NO se pudo Editar");
             });
         }
@@ -100,7 +96,6 @@ function TableCategories() {
             .then(res => res.json())
             .then(res => {
                 state(res.data.categories)
-                console.log(state)
                 
             })
     }
@@ -123,12 +118,10 @@ function TableCategories() {
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                console.log(res);
                 if (res) {
                     navigate("/home");
                 }
             }).catch(error => {
-                console.log("error: " + error);
                 alert("NO se pudo eliminar");
             });
         }

@@ -20,7 +20,6 @@ function Register(){
                 'Content-Type': 'application/json'
                 }  
          }).then(function (res) {
-                 console.log(res);
                  if(res){
                     if (res.data.confirmed == false){
                         alert("Necesitas confirmar tu correo para acceder");
@@ -28,7 +27,6 @@ function Register(){
                     }
                  }
                }).catch(error=>{
-                console.log("error: "+error);
                 alert("El correo digitado ya existe");
               });
               

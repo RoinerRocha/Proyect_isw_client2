@@ -41,7 +41,6 @@ function Home() {
             .then(res => res.json())
             .then(res => {
                 state(res.data.categories)
-                console.log(state)
 
             })
     }
@@ -69,13 +68,11 @@ function Home() {
             .then(res => res.json())
             .then(res => {
                 setNotice(res.data.news);
-                console.log(setNotice);
             })
 
     }, []);
 
     const Filtro = (props) => {
-        console.log(props);
         fetch('http://localhost:4000', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -94,19 +91,16 @@ function Home() {
             .then(res => res.json())
             .then(res => {
                 setNotice(res.data.newsByCat);
-                console.log(notice);
             })
     }
 
     const [search, setSearch] = useState('');
-    console.log(search);
     const Searching = async (props) => {
         if (!search) {
             alert("No has escrito la noticia");
         } else {
             localStorage.setItem('Palabra', JSON.stringify(search));
             const palabra = localStorage.getItem('Palabra');
-            console.log(palabra);
             alert("Buscando");
             fetch('http://localhost:4000', {
                 method: 'POST',
@@ -129,7 +123,6 @@ function Home() {
                 .then(res => res.json())
                 .then(res => {
                     setNotice(res.data.searchNews);
-                    console.log(notice);
                 })
         }
     }
